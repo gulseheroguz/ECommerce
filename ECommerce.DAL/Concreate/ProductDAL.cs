@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ECommerce.DAL.Concreate
 {
-    public class CategoryDAL : GenericRepository<Category, ECommerceContext>,ICategoryDAL
+    public class ProductDAL : GenericRepository<Product,ECommerceContext>, IProductDAL
     {
     }
 }
