@@ -10,21 +10,20 @@ namespace ECommerce.WebAPI.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly ICategoryDAL _categoryDAL;
+        private ICategoryDAL _categoryDAL;
 
         public CategoriesController(ICategoryDAL categoryDAL)
         {
             _categoryDAL = categoryDAL;
         }
+
         [HttpGet]
-
-
         public IActionResult Get()
         {
             return Ok(_categoryDAL.GetAll());
         }
-        [HttpGet("{id}")]
 
+        [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             if (id == null || _categoryDAL.GetAll() == null)
@@ -37,16 +36,18 @@ namespace ECommerce.WebAPI.Controllers
 
             return Ok(category);
         }
+
         [HttpPost]
         public IActionResult Post([FromBody] Category category)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _categoryDAL.Add(category);
                 return CreatedAtAction("Get", new { id = category.Id }, category);
             }
             return BadRequest();
         }
+
         [HttpPut]
         public IActionResult Put([FromBody] Category category)
         {
@@ -57,6 +58,7 @@ namespace ECommerce.WebAPI.Controllers
             }
             return BadRequest();
         }
+
         [HttpDelete]
         public IActionResult Delete(int id) 
         {
